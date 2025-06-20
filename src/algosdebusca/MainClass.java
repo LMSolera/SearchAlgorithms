@@ -63,7 +63,8 @@ public class MainClass {
             }
         }
         tp.add(pm, 0);
-        tp.setSize(900, 525);      
+        tp.setSize(900, 525);
+        tp.setLocationRelativeTo(null);
         tp.setVisible(true);
     }
     

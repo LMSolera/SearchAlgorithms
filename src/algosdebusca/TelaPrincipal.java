@@ -1,8 +1,5 @@
 package algosdebusca;
 
-import java.awt.event.MouseEvent;
-import javax.swing.JPanel;
-
 public class TelaPrincipal extends javax.swing.JFrame {  
    
     public TelaPrincipal() {
@@ -70,7 +67,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new TelaRedimensao().setVisible(true);
+        TelaRedimensao tr = new TelaRedimensao();
+        tr.setLocationRelativeTo(this);
+        tr.setVisible(true);
+        tr = null;
     }//GEN-LAST:event_jButton3ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
