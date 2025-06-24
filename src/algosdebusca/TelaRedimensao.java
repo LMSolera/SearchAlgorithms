@@ -4,6 +4,7 @@ public class TelaRedimensao extends javax.swing.JFrame {
 
     public TelaRedimensao() {
         initComponents();
+        setTitle("Resize Window");
     }
     
     @SuppressWarnings("unchecked")
