@@ -40,13 +40,6 @@ public class PainelMatriz extends javax.swing.JPanel {
             mouseDown2 = false;
         }
     }
-    
-    public static int[] gotPressed (JPanel p) {
-        int xy[] = new int[2];
-        xy[0] = p.getY();
-        xy[1] = p.getX();
-        return xy;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
