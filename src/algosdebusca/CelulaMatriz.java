@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 public class CelulaMatriz extends javax.swing.JPanel {
    
    private int myCoordinate[] = new int[2];
+   private int verticeIndex = -1;
 
    public CelulaMatriz() {
         initComponents();
@@ -40,56 +41,68 @@ public class CelulaMatriz extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     public void validateState () {
+        
         if (MainClass.peekMatrixPos(myCoordinate[0], myCoordinate[1]) == 1
-                && getBackground() == Color.black) {
+                && getBackground() != Color.white) {            
             setBackground(Color.white);
+            setVerticeIndex(-1);
         }
+        
         if (MainClass.peekMatrixPos(myCoordinate[0], myCoordinate[1]) == 0
-                && getBackground() == Color.white) {
+                && getBackground() != Color.black) {
             setBackground(Color.black);
-        }   
+            setVerticeIndex(-1);
+        }
     }
     
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-            if (PainelMatriz.getMouse1State() && elligibleToChange()) {           
-                int xy[] = PainelMatriz.gotPressed(this);
-                if (getBackground() == Color.black && 
+            if (PainelMatriz.getMouse1State() && elligibleToChange()) {     
+                
+                if (getBackground() != Color.white && 
                         MainClass.peekMatrixPos(myCoordinate[0], myCoordinate[1]) == 0) {
                     setBackground(Color.white);
                     MainClass.updateMatrix(myCoordinate[0], myCoordinate[1]);
                 }
+                
             }
-            if (PainelMatriz.getMouse2State() && elligibleToChange()) {           
-                int xy[] = PainelMatriz.gotPressed(this);
-                if (getBackground() == Color.white &&
+            if (PainelMatriz.getMouse2State() && elligibleToChange()) {       
+                
+                if (getBackground() != Color.black &&
                         MainClass.peekMatrixPos(myCoordinate[0], myCoordinate[1]) == 1) {
                     setBackground(Color.black);
+                    setVerticeIndex(-1);
                     MainClass.updateMatrix(myCoordinate[0], myCoordinate[1]);
                 }
+                
             }          
     }//GEN-LAST:event_formMouseEntered
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         if (evt.getButton() == MouseEvent.BUTTON1 && elligibleToChange()) {
-            int xy [] = PainelMatriz.gotPressed(this);
-            if (getBackground() == Color.black && 
+
+            if (getBackground() != Color.white && 
                         MainClass.peekMatrixPos(myCoordinate[0], myCoordinate[1]) == 0) {
                 setBackground(Color.white);
                 MainClass.updateMatrix(myCoordinate[0], myCoordinate[1]);
             }
+            
             PainelMatriz.mouse1Change();
+            
         } else if (evt.getButton() == MouseEvent.BUTTON1) {            
             PainelMatriz.mouse1Change();
         }
         
         if (evt.getButton() == MouseEvent.BUTTON3 && elligibleToChange()){
-            int xy [] = PainelMatriz.gotPressed(this);
-            if (getBackground() == Color.white &&
+
+            if (getBackground() != Color.black &&
                         MainClass.peekMatrixPos(myCoordinate[0], myCoordinate[1]) == 1) {
                 setBackground(Color.black);
+                setVerticeIndex(-1);
                 MainClass.updateMatrix(myCoordinate[0], myCoordinate[1]);
             }
+            
             PainelMatriz.mouse2Change();
+            
         } else if (evt.getButton() == MouseEvent.BUTTON3){           
             PainelMatriz.mouse2Change();
         }
@@ -99,6 +112,7 @@ public class CelulaMatriz extends javax.swing.JPanel {
         if (evt.getButton() == MouseEvent.BUTTON1) {
             PainelMatriz.mouse1Change();
         }
+        
         if (evt.getButton() == MouseEvent.BUTTON3) {
             PainelMatriz.mouse2Change();
         }
@@ -109,9 +123,17 @@ public class CelulaMatriz extends javax.swing.JPanel {
         this.myCoordinate[1] = x;
     }
     
-    public int[] getCoordinate (int y, int x) {
+    public int[] getCoordinate () {
         int xy[] = {myCoordinate[0], myCoordinate[1]};
         return xy;
+    }
+    
+    public void setVerticeIndex (int newIndex) {
+        this.verticeIndex = newIndex;
+    }
+    
+    public int getVerticeIndex () {
+        return this.verticeIndex;
     }
     
     private boolean elligibleToChange () {
