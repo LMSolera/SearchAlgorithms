@@ -1,6 +1,7 @@
 package algosdebusca;
 
 import java.awt.Color;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,59 +10,99 @@ public class MainClass {
     private static int x = 0;
     private static int y = 0;
     private static int[][] matrix;
-    private static CelulaMatriz celulas[];
+    private static HashMap<ArrayKey, CelulaMatriz> celulas = new HashMap<>();
     private static JFrame tp = null;
     private static JPanel pm = null;
 
     public static int[][] fillMatrix (int y, int x) {
         int matrix[][] = new int[y][x];
-        for (int col = 0; col < y; col++) {
-            for (int row = 0; row < x; row++) {
-                matrix[col][row] = 0;
+        
+        for (int row = 0; row < y; row++) {
+            
+            for (int col = 0; col < x; col++) {
+                matrix[row][col] = 0;
             }
+            
         }
+        
         matrix[0][0] = 1;
         matrix[y-1][x-1] = 1;
+        
         return matrix;
     }
     
     public static void resetMatrix (int y, int x) {
-        matrix = fillMatrix(y,x);
-        for (int i = 0; i < celulas.length; i++) {
-            celulas[i].validateState();
+        matrix = fillMatrix(y,x);      
+        
+        for (int row = 0; row < y; row++) {
+            
+            for  (int col = 0; col < x; col++) {
+                int coordinate[] = {row, col};
+                celulas.get(new ArrayKey(coordinate)).validateState();
+            }
+            
+        }
+        
+    }
+    
+    public static void clearCells () {
+        for (int row = 0; row < y; row++) {
+            
+            for  (int col = 0; col < x; col++) {
+                int coordinate[] = {row, col};
+                celulas.get(new ArrayKey(coordinate)).validateState();
+            }
+            
         }
     }
     
     public static void printMatrix () {
         System.out.print("\n\n\n");
-        for (int col = 0; col < y; col++) {
-            for (int row = 0; row < x; row++) {
-                System.out.print (matrix[col][row] + " ");
+        
+        for (int row = 0; row < y; row++) {
+            
+            for (int col = 0; col < x; col++) {
+                System.out.print (matrix[row][col] + " ");
             }
+            
             System.out.print ("\n");
+            
         }
+    }
+    
+    public static CelulaMatriz getMatrixCell (int y, int x) {
+        int coordinate[] = {y, x};
+        return celulas.get(new ArrayKey(coordinate));
     }
     
     private static void startWindow (int matrix[][]) {
         tp = new TelaPrincipal();
         pm = new PainelMatriz();
-        celulas = new CelulaMatriz[x*y];
+        
         int count = 0;
-        for (int col = 0; col < y; col++) {
-            for (int row = 0; row < x; row++) {
-                CelulaMatriz p = new CelulaMatriz(); 
+
+        for (int row = 0; row < y; row++) {
+            
+            for (int col = 0; col < x; col++) {
+                CelulaMatriz p = new CelulaMatriz();
+                
                 p.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
-                p.setCoordinate(col, row);
-                if (matrix[col][row] == 0) {
+                p.setCoordinate(row, col);
+                
+                if (matrix[row][col] == 0) {
                     p.setBackground(Color.black);
                 } else {
                     p.setBackground(Color.white);
                 }
-                celulas[count] = p;
+                
+                int coordinate[] = {row, col};
+                celulas.put(new ArrayKey(coordinate), p);
                 count++;
                 pm.add(p);
             }
+            
         }
+        
         tp.add(pm, 0);
         tp.setSize(900, 525);
         tp.setLocationRelativeTo(null);
@@ -84,12 +125,17 @@ public class MainClass {
     public static int peekMatrixPos (int y, int x) {
         int value = matrix[y][x];
         return value;
-    }       
+    }
+    
+    public static int[][] getMatrix () {
+        return matrix;
+    }
     
     public static void start() {
         if (tp != null) {
             tp.dispose();
         }
+        
         matrix = fillMatrix(y,x);
         startWindow(matrix);
     }    
