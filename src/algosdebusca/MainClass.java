@@ -78,8 +78,6 @@ public class MainClass {
     private static void startWindow (int matrix[][]) {
         tp = new TelaPrincipal();
         pm = new PainelMatriz();
-        
-        int count = 0;
 
         for (int row = 0; row < y; row++) {
             
@@ -90,14 +88,13 @@ public class MainClass {
                 p.setCoordinate(row, col);
                 
                 if (matrix[row][col] == 0) {
-                    p.setBackground(Color.black);
-                } else {
                     p.setBackground(Color.white);
+                } else {
+                    p.setBackground(Color.black);
                 }
                 
                 int coordinate[] = {row, col};
                 celulas.put(new ArrayKey(coordinate), p);
-                count++;
                 pm.add(p);
             }
             

@@ -1,7 +1,4 @@
 package algosdebusca;
-
-import javax.swing.JPanel;
-
 public class PainelMatriz extends javax.swing.JPanel {
     
     private static boolean mouseDown1;

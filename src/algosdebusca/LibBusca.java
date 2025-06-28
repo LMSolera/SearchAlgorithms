@@ -15,7 +15,6 @@ public class LibBusca {
         fim[0] = MainClass.getY() - 1;
         fim[1] = MainClass.getX() - 1;
         int numVertices = 0;
-        int count = 0;
 
         for (int row = 0; row < MainClass.getY(); row++) {
 
@@ -24,7 +23,6 @@ public class LibBusca {
                 if (MainClass.getMatrix()[row][col] == 1) {
                     MainClass.getMatrixCell(row, col).setVerticeIndex(numVertices);
                     vertices.put(numVertices, MainClass.getMatrixCell(row, col));
-                    count++;
                     numVertices++;
                 }
 
@@ -109,7 +107,6 @@ public class LibBusca {
         int fim[] = new int[3];
         fim[0] = MainClass.getY() - 1;
         fim[1] = MainClass.getX() - 1;
-        int count = 0;
 
         for (int row = 0; row < MainClass.getY(); row++) {
 
@@ -118,7 +115,6 @@ public class LibBusca {
                 if (MainClass.getMatrix()[row][col] == 1) {
                     MainClass.getMatrixCell(row, col).setVerticeIndex(numVertices);
                     vertices.put(numVertices, MainClass.getMatrixCell(row, col));
-                    count++;
                     numVertices++;
                 }
 
@@ -199,11 +195,9 @@ public class LibBusca {
 }
 
 class BuscaLargura {
-	private int numVertices;
 	private LinkedList<Integer>[] listaAdjacencia;
 
 	public BuscaLargura(int numVertices) {
-            this.numVertices = numVertices;
             listaAdjacencia = new LinkedList[numVertices];
             
             for (int i = 0; i < numVertices; i++) {
@@ -243,13 +237,10 @@ class BuscaLargura {
 }
 
 class BuscaProfundidade {
-	
-	private int numVertices;
+
 	private LinkedList<Integer>[] listaAdjacencia;
 
 	public BuscaProfundidade(int numVertices) {
-		
-		this.numVertices = numVertices;
 		listaAdjacencia = new LinkedList[numVertices];
 		for (int i = 0; i < numVertices; i++) {
 			listaAdjacencia[i] = new LinkedList<>();
